@@ -300,93 +300,82 @@ form.reset();
 // PARTICLE BACKGROUND
 // ===============================
 
-const canvas =
-document.getElementById(
-"particles"
-);
+const canvas = document.getElementById("particles");
 
-if(canvas){
+if (canvas) {
 
-const ctx =
-canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
-canvas.width =
-window.innerWidth;
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
 
-canvas.height =
-window.innerHeight;
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-const particles = [];
+    const particles = [];
 
-for(let i=0;i<80;i++){
+    const particleCount =
+        window.innerWidth > 768 ? 120 : 60;
 
-particles.push({
+    for (let i = 0; i < particleCount; i++) {
 
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
+        particles.push({
 
-size:Math.random()*3,
+            x: Math.random() * canvas.width,
 
-speedX:
-(Math.random()-0.5)*1,
+            y: Math.random() * canvas.height,
 
-speedY:
-(Math.random()-0.5)*1
+            // Tiny premium particles
+            size: Math.random() * 1.5 + 0.3,
 
-});
+            speedX: (Math.random() - 0.5) * 0.4,
 
-}
+            speedY: (Math.random() - 0.5) * 0.4,
 
-function animateParticles(){
+            opacity: Math.random() * 0.6 + 0.3
 
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
+        });
 
-particles.forEach(p=>{
+    }
 
-p.x += p.speedX;
-p.y += p.speedY;
+    function animateParticles() {
 
-if(
-p.x < 0 ||
-p.x > canvas.width
-)
-p.speedX *= -1;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-if(
-p.y < 0 ||
-p.y > canvas.height
-)
-p.speedY *= -1;
+        particles.forEach(p => {
 
-ctx.beginPath();
+            p.x += p.speedX;
+            p.y += p.speedY;
 
-ctx.arc(
-p.x,
-p.y,
-p.size,
-0,
-Math.PI*2
-);
+            if (p.x < 0 || p.x > canvas.width)
+                p.speedX *= -1;
 
-ctx.fillStyle =
-"#00d4ff";
+            if (p.y < 0 || p.y > canvas.height)
+                p.speedY *= -1;
 
-ctx.fill();
+            ctx.beginPath();
 
-});
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
+            );
 
-requestAnimationFrame(
-animateParticles
-);
+            ctx.fillStyle = `rgba(0,212,255,${p.opacity})`;
 
-}
+            ctx.fill();
 
-animateParticles();
+        });
+
+        requestAnimationFrame(animateParticles);
+
+    }
+
+    animateParticles();
 
 }
 
