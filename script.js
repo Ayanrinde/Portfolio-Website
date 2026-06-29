@@ -412,3 +412,44 @@ console.log(
 "%cPremium Computer Science Portfolio Loaded",
 "color:#00d4ff;font-size:18px;font-weight:bold;"
 );
+
+// ======================
+// MOBILE MENU
+// ======================
+
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+hamburger.addEventListener("click", function () {
+
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+
+});
+
+// Close menu when clicking a link
+
+document.querySelectorAll(".mobile-menu a").forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        hamburger.classList.remove("active");
+        mobileMenu.classList.remove("active");
+
+    });
+
+});
+
+document.addEventListener("click", function(e){
+
+    if(
+        !mobileMenu.contains(e.target) &&
+        !hamburger.contains(e.target)
+    ){
+
+        mobileMenu.classList.remove("active");
+        hamburger.classList.remove("active");
+
+    }
+
+});
