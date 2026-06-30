@@ -270,27 +270,57 @@ bg.style.transform =
 });
 
 // ===============================
-// CONTACT FORM
+// EMAILJS CONTACT FORM
 // ===============================
 
-const form =
-document.querySelector(
-".contact-form"
-);
+// Initialize EmailJS
+emailjs.init("BK0mDSO7sFIbmXeT3");
+
+const form = document.getElementById("contact-form");
 
 if(form){
 
-form.addEventListener(
-"submit",
-(e)=>{
+form.addEventListener("submit",function(e){
 
 e.preventDefault();
 
-alert(
-"Message sent successfully!"
-);
+const button =
+form.querySelector("button");
+
+button.innerHTML = "Sending...";
+button.disabled = true;
+
+emailjs.sendForm(
+
+"service_kagi5xu",
+"template_qpzzul9",
+this
+
+)
+
+.then(() => {
+
+button.innerHTML = "Message Sent ✓";
+
+alert("Thank you! Your message has been sent successfully.");
 
 form.reset();
+
+button.innerHTML = "Send Message";
+button.disabled = false;
+
+})
+
+.catch((error)=>{
+
+console.error(error);
+
+alert("Failed to send message.");
+
+button.innerHTML = "Send Message";
+button.disabled = false;
+
+});
 
 });
 
