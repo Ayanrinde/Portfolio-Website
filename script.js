@@ -273,56 +273,76 @@ bg.style.transform =
 // EMAILJS CONTACT FORM
 // ===============================
 
-// Initialize EmailJS
-emailjs.init("BK0mDSO7sFIbmXeT3");
+emailjs.init("YOUR_PUBLIC_KEY");
 
 const form = document.getElementById("contact-form");
 
 if(form){
 
-form.addEventListener("submit",function(e){
+    const submitBtn = form.querySelector("button");
 
-e.preventDefault();
+    form.addEventListener("submit",function(e){
 
-const button =
-form.querySelector("button");
+        e.preventDefault();
 
-button.innerHTML = "Sending...";
-button.disabled = true;
+        submitBtn.disabled = true;
 
-emailjs.sendForm(
+        submitBtn.innerHTML = `
+            <span class="spinner"></span>
+            Sending...
+        `;
 
-"service_kagi5xu",
-"template_qpzzul9",
-this
+        emailjs.sendForm(
 
-)
+            "YOUR_SERVICE_ID",
 
-.then(() => {
+            "YOUR_TEMPLATE_ID",
 
-button.innerHTML = "Message Sent ✓";
+            this
 
-alert("Thank you! Your message has been sent successfully.");
+        )
 
-form.reset();
+        .then(()=>{
 
-button.innerHTML = "Send Message";
-button.disabled = false;
+            submitBtn.innerHTML = "✓ Message Sent";
 
-})
+            submitBtn.style.background = "#10b981";
 
-.catch((error)=>{
+            form.reset();
 
-console.error(error);
+            setTimeout(()=>{
 
-alert("Failed to send message.");
+                submitBtn.innerHTML = "Send Message";
 
-button.innerHTML = "Send Message";
-button.disabled = false;
+                submitBtn.style.background =
+                "linear-gradient(135deg,var(--cyan),var(--purple))";
 
-});
+                submitBtn.disabled = false;
 
-});
+            },2500);
+
+        })
+
+        .catch(()=>{
+
+            submitBtn.innerHTML = "✕ Failed";
+
+            submitBtn.style.background = "#ef4444";
+
+            setTimeout(()=>{
+
+                submitBtn.innerHTML = "Send Message";
+
+                submitBtn.style.background =
+                "linear-gradient(135deg,var(--cyan),var(--purple))";
+
+                submitBtn.disabled = false;
+
+            },2500);
+
+        });
+
+    });
 
 }
 

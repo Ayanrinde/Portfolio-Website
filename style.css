@@ -441,6 +441,11 @@ section{
     display:flex;
     flex-direction:column;
     gap:20px;
+
+    transition:
+        background .35s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
 .contact-form input,
@@ -475,6 +480,50 @@ section{
     font-weight:600;
 
     cursor:pointer;
+}
+
+.contact-form button:disabled{
+    cursor:not-allowed;
+    opacity:.95;
+}
+
+/* =========================
+   BUTTON LOADING SPINNER
+========================= */
+
+.contact-form button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    transition:all .35s ease;
+}
+
+.contact-form button:disabled{
+    cursor:not-allowed;
+    opacity:.95;
+}
+
+.spinner{
+
+    width:18px;
+    height:18px;
+
+    border:2px solid rgba(255,255,255,.35);
+    border-top:2px solid #fff;
+
+    border-radius:50%;
+
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 /* =========================
