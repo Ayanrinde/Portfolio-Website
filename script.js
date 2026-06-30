@@ -273,7 +273,7 @@ bg.style.transform =
 // EMAILJS CONTACT FORM
 // ===============================
 
-emailjs.init("YOUR_PUBLIC_KEY");
+emailjs.init("BK0mDSO7sFIbmXeT3");
 
 const form = document.getElementById("contact-form");
 
@@ -294,9 +294,9 @@ if(form){
 
         emailjs.sendForm(
 
-            "YOUR_SERVICE_ID",
+            "service_kagi5xu",
 
-            "YOUR_TEMPLATE_ID",
+            "template_qpzzul9",
 
             this
 
